@@ -1,0 +1,32 @@
+{
+  "name": "move-to-quick-open",
+  "displayName": "Move to Quick Open",
+  "description": "Extension to move selected text to Quick Open input box",
+  "version": "0.0.1",
+  "publisher": "uzay-software",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.moveToQuickOpen"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.moveToQuickOpen",
+        "title": "Move to Quick Open"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.moveToQuickOpen",
+        "key": "ctrl+e",
+        "when": "editorTextFocus"
+      }
+    ]
+  }
+}
