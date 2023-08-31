@@ -12,10 +12,14 @@ function activate(context) {
     // Kopyalanan metindeki \\ karakterlerini \ ile değiştir
     const modifiedSelection = selection.replace(/\\\\/g, '\\');
 
-    // Quick Open penceresine metni doğrudan gönder
-    vscode.env.clipboard.writeText(modifiedSelection);
-    vscode.commands.executeCommand("workbench.action.quickOpen");
-    vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+    // Mevcut clipboard içeriğini alıp, sonrasında geri yüklemek için bir promise zinciri oluşturuyoruz
+    vscode.env.clipboard.readText().then(oldText => {
+      // Quick Open penceresine metni doğrudan gönder
+      vscode.env.clipboard.writeText(modifiedSelection);
+      vscode.commands.executeCommand("workbench.action.quickOpen");
+      vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+      vscode.env.clipboard.writeText(oldText);
+    });
   });
 
   context.subscriptions.push(disposable);
